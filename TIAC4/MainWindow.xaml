@@ -1,0 +1,158 @@
+<Window x:Class="TIAC4.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Кодирование методом Хаффмана"
+        Height="780"
+        Width="1080"
+        MinHeight="680"
+        MinWidth="900"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Margin="0,0,0,16"
+                   FontSize="22"
+                   FontWeight="SemiBold"
+                   Text="Кодирование методом Хаффмана" />
+
+        <Border Grid.Row="1"
+                Padding="12"
+                BorderBrush="#B8B8B8"
+                BorderThickness="1"
+                CornerRadius="2">
+            <UniformGrid Columns="7">
+                <StackPanel Margin="4">
+                    <TextBlock HorizontalAlignment="Center" Text="S1" />
+                    <TextBox x:Name="ProbabilityS1TextBox" Margin="0,5,0,0" Padding="6" Text="0,400" TextAlignment="Center" TextChanged="ProbabilityTextBox_TextChanged" />
+                </StackPanel>
+                <StackPanel Margin="4">
+                    <TextBlock HorizontalAlignment="Center" Text="S2" />
+                    <TextBox x:Name="ProbabilityS2TextBox" Margin="0,5,0,0" Padding="6" Text="0,150" TextAlignment="Center" TextChanged="ProbabilityTextBox_TextChanged" />
+                </StackPanel>
+                <StackPanel Margin="4">
+                    <TextBlock HorizontalAlignment="Center" Text="S3" />
+                    <TextBox x:Name="ProbabilityS3TextBox" Margin="0,5,0,0" Padding="6" Text="0,150" TextAlignment="Center" TextChanged="ProbabilityTextBox_TextChanged" />
+                </StackPanel>
+                <StackPanel Margin="4">
+                    <TextBlock HorizontalAlignment="Center" Text="S4" />
+                    <TextBox x:Name="ProbabilityS4TextBox" Margin="0,5,0,0" Padding="6" Text="0,100" TextAlignment="Center" TextChanged="ProbabilityTextBox_TextChanged" />
+                </StackPanel>
+                <StackPanel Margin="4">
+                    <TextBlock HorizontalAlignment="Center" Text="S5" />
+                    <TextBox x:Name="ProbabilityS5TextBox" Margin="0,5,0,0" Padding="6" Text="0,100" TextAlignment="Center" TextChanged="ProbabilityTextBox_TextChanged" />
+                </StackPanel>
+                <StackPanel Margin="4">
+                    <TextBlock HorizontalAlignment="Center" Text="S6" />
+                    <TextBox x:Name="ProbabilityS6TextBox" Margin="0,5,0,0" Padding="6" Text="0,080" TextAlignment="Center" TextChanged="ProbabilityTextBox_TextChanged" />
+                </StackPanel>
+                <StackPanel Margin="4">
+                    <TextBlock HorizontalAlignment="Center" Text="S7" />
+                    <TextBox x:Name="ProbabilityS7TextBox" Margin="0,5,0,0" Padding="6" Text="0,020" TextAlignment="Center" TextChanged="ProbabilityTextBox_TextChanged" />
+                </StackPanel>
+            </UniformGrid>
+        </Border>
+
+        <StackPanel Grid.Row="2"
+                    Margin="0,14,0,14"
+                    Orientation="Horizontal">
+            <Button Width="150"
+                    Height="34"
+                    Click="BuildButton_Click"
+                    Content="Построить код" />
+            <Button Width="130"
+                    Height="34"
+                    Margin="10,0,0,0"
+                    Click="ResetButton_Click"
+                    Content="Сбросить" />
+            <TextBlock x:Name="StatusTextBlock"
+                       Margin="18,0,0,0"
+                       VerticalAlignment="Center"
+                       Foreground="DarkGreen" />
+        </StackPanel>
+
+        <TabControl Grid.Row="3">
+            <TabItem Header="Построение кода">
+                <Grid Margin="10">
+                    <GroupBox Header="Расчёт">
+                        <TextBox x:Name="ResultTextBox"
+                                 Margin="10"
+                                 Padding="8"
+                                 FontFamily="Consolas"
+                                 FontSize="14"
+                                 HorizontalScrollBarVisibility="Auto"
+                                 IsReadOnly="True"
+                                 TextWrapping="NoWrap"
+                                 VerticalScrollBarVisibility="Auto" />
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Кодирование и декодирование">
+                <Grid Margin="14">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <GroupBox Grid.Row="0" Header="Исходное сообщение">
+                        <TextBox x:Name="SourceMessageTextBox"
+                                 Margin="10"
+                                 Padding="8"
+                                 Text="S1 S2 S6 S1 S7"
+                                 TextWrapping="Wrap" />
+                    </GroupBox>
+
+                    <Button x:Name="EncodeButton"
+                            Grid.Row="1"
+                            Width="140"
+                            Height="34"
+                            Margin="0,10,0,10"
+                            HorizontalAlignment="Left"
+                            Click="EncodeButton_Click"
+                            Content="Кодировать"
+                            IsEnabled="False" />
+
+                    <GroupBox Grid.Row="2" Header="Битовая последовательность">
+                        <TextBox x:Name="EncodedTextBox"
+                                 Margin="10"
+                                 Padding="8"
+                                 FontFamily="Consolas"
+                                 TextWrapping="Wrap" />
+                    </GroupBox>
+
+                    <Button x:Name="DecodeButton"
+                            Grid.Row="3"
+                            Width="140"
+                            Height="34"
+                            Margin="0,10,0,10"
+                            HorizontalAlignment="Left"
+                            Click="DecodeButton_Click"
+                            Content="Декодировать"
+                            IsEnabled="False" />
+
+                    <GroupBox Grid.Row="4" Header="Декодированное сообщение">
+                        <StackPanel>
+                            <TextBox x:Name="DecodedMessageTextBox"
+                                     Margin="10,10,10,5"
+                                     Padding="8"
+                                     IsReadOnly="True"
+                                     TextWrapping="Wrap" />
+                            <TextBlock x:Name="VerificationTextBlock"
+                                       Margin="12,0,12,10"
+                                       FontWeight="SemiBold" />
+                        </StackPanel>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
